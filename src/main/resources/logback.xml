@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<property resource="logback.properties" />
+	<appender name="FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>${log.level}</level>
+			<OnMismatch>ACCEPT</OnMismatch>
+			<OnMatch>ACCEPT</OnMatch>
+		</filter>
+		<file>${log.path}client/client.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.path}client/client.%d{yyyy-MM-dd}.log.zip
+			</fileNamePattern>
+			<MaxHistory>${log.clientMaxHistory}</MaxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%-12(%d{HH:mm:ss.SSS}) %-5level: %msg%n</pattern>
+		</layout>
+	</appender>
+
+	<appender name="FILE-ERROR"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<OnMismatch>DENY</OnMismatch>
+			<OnMatch>ACCEPT</OnMatch>
+		</filter>
+		<File>${log.path}error/err.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.path}error/err.%d{yyyy-MM-dd}.log.zip
+			</fileNamePattern>
+			<MaxHistory>${log.errorMaxHistory}</MaxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%-12(%d{HH:mm:ss.SSS}) %-5level: %msg%n</pattern>
+		</layout>
+	</appender>
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%-10(%d{HH:mm:ss.SSS}) %-5level: %msg%n</pattern>
+		</layout>
+	</appender>
+
+	<logger name="org.springframework">
+		<level value="ERROR" />
+	</logger>
+
+	<root level="${log.level}">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE" />
+		<appender-ref ref="FILE-ERROR" />
+	</root>
+</configuration>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.demo.springboot.mapper.StudentMapper" >
+
+  <resultMap id="StudentMap" type="com.demo.springboot.entity.Student" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <select id="listStudents" resultMap="StudentMap">
+  	SELECT * FROM `Student`
+  </select>
+</mapper>
