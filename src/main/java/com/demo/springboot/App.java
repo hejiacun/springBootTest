@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * Hello world!
  *
  */
-@MapperScan("com.demo.springboot.mapper")
+//@MapperScan("com.demo.springboot.mapper")
 @SpringBootApplication
 public class App 
 {
