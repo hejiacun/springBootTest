@@ -6,4 +6,5 @@ import com.demo.springboot.entity.Student;
 
 public interface StudentService {
 	List<Student> listStudents();
+	Student getStudentById(int id);
 }

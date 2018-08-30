@@ -11,4 +11,5 @@ import com.demo.springboot.entity.Student;
 //@Mapper
 public interface StudentMapper {
 	List<Student> listStudents();
+	Student getStudentById(int id);
 }

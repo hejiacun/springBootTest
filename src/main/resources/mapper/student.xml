@@ -7,8 +7,11 @@
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="INTEGER" />
   </resultMap>
-  
   <select id="listStudents" resultMap="StudentMap">
   	SELECT * FROM `Student`
+  </select>
+  
+  <select id="getStudentById" resultMap="StudentMap">
+  	SELECT * FROM `Student` where id = #{id}
   </select>
 </mapper>

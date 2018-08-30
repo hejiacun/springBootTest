@@ -16,7 +16,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @MapperScan(basePackages = {"com.demo.springboot.mapper"}, sqlSessionFactoryRef = "testSqlSessionFactory")
-public class TalkDataSourceConfig extends AbstractDruidDataSourceConfig {
+public class TestDataSourceConfig extends AbstractDruidDataSourceConfig {
     @Value("${spring.datasource.type}")
     private String type;
     @Value("${spring.datasource.driverClassName}")
@@ -30,12 +30,12 @@ public class TalkDataSourceConfig extends AbstractDruidDataSourceConfig {
 
     @Primary
     @Bean(name = "test")
-    public DruidDataSource talkDataSource() {
+    public DruidDataSource testDataSource() {
         return super.createDataSource(url, username, password, driverClassName);
     }
 
     @Primary
-    @Bean
+    @Bean//事务管理
     public DataSourceTransactionManager setTransactionManager(@Qualifier("test") DataSource dataSource) {
         DataSourceTransactionManager manager = new DataSourceTransactionManager();
         manager.setDataSource(dataSource);
@@ -44,13 +44,13 @@ public class TalkDataSourceConfig extends AbstractDruidDataSourceConfig {
 
     @Primary
     @Bean(name = "testSqlSessionFactory")
-    public SqlSessionFactory talkSqlSessionFactory(@Qualifier("test") DataSource dataSource) throws Exception {
+    public SqlSessionFactory testSqlSessionFactory(@Qualifier("test") DataSource dataSource) throws Exception {
         return super.sqlSessionFactory(dataSource, "classpath*:mapper/*.xml");
     }
 
     @Primary
     @Bean
-    public SqlSessionTemplate talkSqlSessionTemplate(@Qualifier("testSqlSessionFactory") SqlSessionFactory factory) {
+    public SqlSessionTemplate testSqlSessionTemplate(@Qualifier("testSqlSessionFactory") SqlSessionFactory factory) {
         return new SqlSessionTemplate(factory);
     }
 }
